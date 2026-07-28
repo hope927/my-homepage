@@ -43,15 +43,25 @@ const Avatar: React.FC<AvatarProps> = ({ initialSrc }) => {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <button
-        type="button"
-        onClick={() => inputRef.current?.click()}
-        onDrop={onDrop}
-        onDragOver={(e) => e.preventDefault()}
-        aria-label="上传头像"
-        className="group relative h-28 w-28 shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-blue-500 via-violet-500 to-purple-500 p-[3px] shadow-[0_8px_32px_rgba(139,92,246,0.35)] transition-transform hover:scale-[1.03] active:scale-95 md:h-32 md:w-32"
-      >
-        <span className="relative block h-full w-full overflow-hidden rounded-full bg-white">
+      <div className="relative h-28 w-28 md:h-32 md:w-32">
+        {/* 呼吸光晕 */}
+        <span className="animate-pulse-ring absolute inset-[-6px] rounded-full bg-gradient-to-br from-blue-500/40 to-violet-500/40 blur-md" />
+        {/* 旋转渐变光环 */}
+        <span
+          className="animate-spin-slow absolute inset-0 rounded-full opacity-90"
+          style={{
+            background:
+              'conic-gradient(from 0deg, #3b82f6, #8b5cf6, #a855f7, #3b82f6)',
+          }}
+        />
+        <button
+          type="button"
+          onClick={() => inputRef.current?.click()}
+          onDrop={onDrop}
+          onDragOver={(e) => e.preventDefault()}
+          aria-label="上传头像"
+          className="group absolute inset-[3px] block overflow-hidden rounded-full bg-white shadow-[0_8px_32px_rgba(139,92,246,0.35)] transition-transform hover:scale-[1.03] active:scale-95"
+        >
           {avatarSrc ? (
             <img
               src={avatarSrc}
@@ -70,8 +80,8 @@ const Avatar: React.FC<AvatarProps> = ({ initialSrc }) => {
             <Camera className="h-5 w-5" />
             <span className="text-[10px]">上传头像</span>
           </span>
-        </span>
-      </button>
+        </button>
+      </div>
       <input
         ref={inputRef}
         type="file"

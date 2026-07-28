@@ -76,11 +76,13 @@ const ChatPanel: React.FC = () => {
   };
 
   return (
-    <section className="glass-card flex w-full flex-col gap-4 rounded-3xl p-4 shadow-card md:p-6">
+    <section className="animate-rise glass-card flex w-full flex-col gap-4 rounded-3xl p-4 shadow-card md:p-6" style={{ animationDelay: '0.45s' }}>
       {/* 标题 */}
       <div className="flex items-center gap-2">
-        <span className="btn-gradient flex h-8 w-8 items-center justify-center rounded-lg">
+        <span className="relative btn-gradient flex h-8 w-8 items-center justify-center rounded-lg">
           <Sparkles className="h-4 w-4" />
+          {/* 图标呼吸光点 */}
+          <span className="absolute -right-0.5 -top-0.5 h-2 w-2 animate-ping rounded-full bg-emerald-400" />
         </span>
         <div className="min-w-0">
           <h2 className="text-base font-semibold text-foreground">数字分身</h2>
@@ -97,7 +99,7 @@ const ChatPanel: React.FC = () => {
       >
         <div className="flex flex-col gap-4 py-1">
           {messages.map((m) => (
-            <ChatMessage key={m.id} message={m} />
+            <ChatMessage key={m.id} message={m} animate={m.id !== 'welcome'} />
           ))}
           {isTyping && <TypingIndicator />}
         </div>
@@ -111,7 +113,7 @@ const ChatPanel: React.FC = () => {
             type="button"
             onClick={() => send(q)}
             disabled={isTyping}
-            className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs text-primary transition-colors hover:bg-primary/10 disabled:opacity-50"
+            className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs text-primary transition-all hover:-translate-y-0.5 hover:bg-primary/10 hover:shadow-[0_4px_12px_rgba(139,92,246,0.2)] disabled:opacity-50"
           >
             {q}
           </button>

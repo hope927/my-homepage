@@ -4,7 +4,7 @@ import { profile } from '@/data/profile';
 
 const ProfileHeader: React.FC = () => {
   return (
-    <header className="flex flex-col items-center gap-4 text-center">
+    <header className="flex animate-rise flex-col items-center gap-4 text-center">
       <Avatar />
       <div className="space-y-2">
         <h1 className="text-balance text-3xl font-semibold md:text-4xl">

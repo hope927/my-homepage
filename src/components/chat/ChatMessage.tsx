@@ -11,13 +11,14 @@ export interface ChatMessageData {
 
 interface ChatMessageProps {
   message: ChatMessageData;
+  animate?: boolean;
 }
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
+const ChatMessage: React.FC<ChatMessageProps> = ({ message, animate = true }) => {
   const isUser = message.sender === 'user';
   return (
     <div
-      className={`flex gap-2.5 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
+      className={`flex gap-2.5 ${isUser ? 'flex-row-reverse' : 'flex-row'} ${animate ? 'animate-bubble' : ''}`}
     >
       <span
         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
