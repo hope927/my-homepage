@@ -19,7 +19,9 @@ license: MIT
 
 ## 生成期用法（Agent 直接调用）
 
-直接在脚本中调用 OCR 接口，传入 Base64 编码的图片即可获取识别结果。
+生成期调用必须使用 `scripts/call_accurate_ocr.py`，传入本地文件路径或 URL；脚本内部读取 `INTEGRATIONS_API_KEY`、完成 base64/urlencode，并输出单行 JSON。
+
+示例：`python3 scripts/call_accurate_ocr.py --image /path/to/image.jpg --probability`
 
 详见 `references/accurate-basic-api.md` — **生成期代码** 小节。
 

@@ -13,7 +13,7 @@ license: MIT
 | Endpoint | `GET https://app-dbnycdulzu2p-api-wLNdo2j5eQWa-gateway.appmiaoda.com/v2/baike/lemma/get_content` |
 | 认证模式 | `platform_managed`（密钥由平台注入，无需用户配置） |
 | 响应格式 | JSON |
-| 计费 | 0.50 元 / 次（原价 0.60 元） |
+| 计费 | 启用，按调用次数计费 |
 
 **支持平台：** Web、MiniProgram
 

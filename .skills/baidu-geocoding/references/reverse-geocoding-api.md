@@ -11,7 +11,7 @@
 | Auth Header | `X-Gateway-Authorization: Bearer <INTEGRATIONS_API_KEY>` |
 | Content-Type | `application/x-www-form-urlencoded`（GET 请求参数附在 URL 上） |
 | third_part_domain | `app-dbnycdulzu2p-api-baBwZEjbe1X9-gateway.appmiaoda.com` |
-| 计费 | 免费（`enable_billing: false`，`original_price: "0"`），但会统计调用次数 |
+| 计费 | 免费（`enable_billing: false`），但会统计调用次数 |
 
 ---
 
@@ -385,7 +385,7 @@ async function getCurrentAddress(): Promise<string> {
 
 - **密钥安全**: `INTEGRATIONS_API_KEY` 仅可在 Edge Function 服务端读取，严禁暴露到前端。
 - **错误处理**: 务必处理 429（配额超限）和 402（余额不足）。
-- **计费**: 当前免费（`original_price: "0"`），但会统计调用次数（`need_count_calls: true`），避免不必要的重复调用。
+- **计费**: 当前免费，但会统计调用次数（`need_count_calls: true`），避免不必要的重复调用。
 - **坐标类型匹配**: 传入的 `location` 坐标类型必须与 `coordtype` 参数一致：
   - `Taro.getLocation({ type: "gcj02" })` → `coordtype: "gcj02ll"`
   - `Taro.getLocation({ type: "wgs84" })` → `coordtype: "wgs84ll"`

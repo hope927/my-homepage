@@ -557,9 +557,8 @@ function PptGeneratorPage() {
 
 - `INTEGRATIONS_API_KEY` 仅可在 Edge Function 服务端通过 `Deno.env.get("INTEGRATIONS_API_KEY")` 读取，严禁暴露到前端代码或客户端环境变量。
 
-### 计费
+### 使用建议
 
-- 原始单价：**150.00 元 / 千次**，优惠价：**125 元 / 千次**（`enable_billing: true`）。
 - 每次调用生成一份 PPT，请避免因前端误操作触发重复调用，建议调用期间禁用生成按钮。
 
 ### 错误处理

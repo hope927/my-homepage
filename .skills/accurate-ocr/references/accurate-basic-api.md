@@ -65,108 +65,21 @@
 
 ## 生成期代码
 
-在 Deno 脚本中直接调用 OCR 接口，将本地图片 Base64 编码后传入。
+生成期调用已改为脚本方式，模型不再生成内联 TypeScript；只需拼命令并执行即可。脚本内部完成本地文件读取、Base64 编码、请求上游接口全部操作，模型只接收最终 JSON 结果。
 
-```typescript
-const apiKey = process.env["INTEGRATIONS_API_KEY"]!; // platform_managed 密钥由平台注入
+```bash
+# 本地图片
+python3 <skill-path>/scripts/call_accurate_ocr.py --image /path/to/photo.jpg [--language-type CHN_ENG] [--detect-direction] [--paragraph] [--probability]
 
-interface OcrWord {
-  words: string;
-  probability?: { average: number; variance: number; min: number };
-}
+# 图片 URL
+python3 <skill-path>/scripts/call_accurate_ocr.py --url "https://example.com/photo.jpg"
 
-interface OcrResult {
-  log_id: number;
-  direction?: number;
-  words_result_num: number;
-  words_result: OcrWord[];
-  paragraphs_result?: Array<{ words_result_idx: number[] }>;
-  paragraphs_result_num?: number;
-  error_code: number;
-  error_msg: string;
-}
-
-/**
- * 调用百度通用文字识别（高精度版）接口，识别图片中的全部文字内容。
- * @param imageBase64 - 图片的 Base64 编码字符串
- * @param options - 可选参数
- * @param options.languageType - 识别语言类型，默认 CHN_ENG
- * @param options.detectDirection - 是否检测图像朝向，默认 false；API 接受字符串 "true"/"false"
- * @param options.paragraph - 是否输出段落信息，默认 false；API 接受字符串 "true"/"false"
- * @param options.probability - 是否返回置信度，默认 false；API 接受字符串 "true"/"false"
- * @param options.multidirectionalRecognize - 是否开启多方向文字识别，默认 false；API 接受字符串 "true"/"false"
- * @param options.ofdFileNum - OFD 文件页码，默认第 1 页
- * @returns OcrResult 识别结果
- */
-async function callOcrAccurateBasic(
-  imageBase64: string,
-  options: {
-    languageType?: string;
-    detectDirection?: boolean;
-    paragraph?: boolean;
-    probability?: boolean;
-    multidirectionalRecognize?: boolean;
-    ofdFileNum?: string;
-  } = {}
-): Promise<OcrResult> {
-  const params: Record<string, string> = { image: imageBase64 };
-  if (options.languageType) params.language_type = options.languageType;
-  if (options.detectDirection !== undefined) {
-    params.detect_direction = String(options.detectDirection);
-  }
-  if (options.paragraph !== undefined) {
-    params.paragraph = String(options.paragraph);
-  }
-  if (options.probability !== undefined) {
-    params.probability = String(options.probability);
-  }
-  if (options.multidirectionalRecognize !== undefined) {
-    params.multidirectional_recognize = String(options.multidirectionalRecognize);
-  }
-  if (options.ofdFileNum) params.ofd_file_num = options.ofdFileNum;
-
-  const response = await fetch(
-    "https://app-dbnycdulzu2p-api-eLMlJ2jB44g9-gateway.appmiaoda.com/rest/2.0/ocr/v1/accurate_basic",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "X-Gateway-Authorization": `Bearer ${apiKey}`,
-      },
-      body: new URLSearchParams(params).toString(),
-    }
-  );
-
-  if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-
-  const json: OcrResult = await response.json();
-  if (json.error_code !== 0) {
-    throw new Error(`OCR API error ${json.error_code}: ${json.error_msg}`);
-  }
-
-  return json;
-}
-
-// 使用示例
-import { readFile } from "node:fs/promises";
-
-const imageBuffer = await readFile("./sample.jpg");
-const imageBase64 = btoa(String.fromCharCode(...new Uint8Array(imageBuffer)));
-const result = await callOcrAccurateBasic(imageBase64, {
-  languageType: "CHN_ENG",
-  detectDirection: true,
-  probability: true,
-});
-
-if (result.words_result && result.words_result.length > 0) {
-  console.log(`识别到 ${result.words_result.length} 行文字：`);
-  result.words_result.forEach((item, idx) => {
-    console.log(`[${idx + 1}] ${item.words}`);
-  });
-} else {
-  console.log("未识别到文字内容");
-}
+# PDF / OFD 文件
+python3 <skill-path>/scripts/call_accurate_ocr.py --pdf-file /path/to/doc.pdf [--pdf-file-num 1]
+python3 <skill-path>/scripts/call_accurate_ocr.py --ofd-file /path/to/doc.ofd [--ofd-file-num 1]
 ```
+
+脚本成功时 stdout 输出一行 JSON（即上游接口原始响应，含 `words_result` 等字段）。
 
 ---
 
@@ -439,7 +352,6 @@ const handleChooseImage = async () => {
 1. **密钥安全**：`INTEGRATIONS_API_KEY` 仅可在 Edge Function 服务端读取，严禁暴露到前端或客户端代码。
 
 2. **计费**：
-   - 折后单价：**¥0.25 / 次**（原价 ¥0.30 / 次）
    - 每次调用均计费，避免在循环或高频场景中不必要地重复调用。
 
 3. **错误处理**：务必处理以下情况：

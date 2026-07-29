@@ -11,7 +11,7 @@
 | Auth Header | `X-Gateway-Authorization: Bearer ${INTEGRATIONS_API_KEY}` |
 | Content-Type | `application/x-www-form-urlencoded` |
 | Third-party Domain | `app-dbnycdulzu2p-api-DLEO7Vjd8Qea-gateway.appmiaoda.com` |
-| 计费 | 启用；原价 ¥7.20 / 5次，折扣价 ¥5.00 / 5次（即 ¥1.00/次） |
+| 计费 | 启用；按调用次数计费 |
 
 ---
 
@@ -394,7 +394,7 @@ async function recognizeAirTicketMiniProgram(options: {
 
 1. **密钥安全**: `INTEGRATIONS_API_KEY` 仅在 Edge Function 服务端读取，严禁在前端代码或客户端环境中暴露。
 
-2. **计费**: 原价 ¥7.20 / 5次（折扣价 ¥5.00 / 5次，即 ¥1.00/次）。每次调用均计费，避免因重试逻辑导致不必要的重复调用。
+2. **计费**: 每次调用均计费，避免因重试逻辑导致不必要的重复调用。
 
 3. **错误处理**: 务必处理以下错误码：
    - HTTP 429：配额已用尽

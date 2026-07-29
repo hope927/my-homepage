@@ -11,7 +11,7 @@
 | Auth Header | `X-Gateway-Authorization: Bearer ${INTEGRATIONS_API_KEY}` |
 | Accept | `application/json` |
 | third_part_domain | `app-dbnycdulzu2p-api-wLNdo2j5eQWa-gateway.appmiaoda.com` |
-| 计费单价 | 0.50 元 / 次（原价 0.60 元，`enable_billing: true`） |
+| 计费 | 启用（`enable_billing: true`），按调用次数计费 |
 
 ---
 
@@ -286,7 +286,7 @@ const handleSearch = async () => {
 
 1. **密钥安全**：`INTEGRATIONS_API_KEY` 仅在 Edge Function 服务端读取，严禁暴露给前端或写入客户端代码。
 
-2. **计费**：每次 API 调用计费 0.50 元（原价 0.60 元），请避免不必要的重复调用，建议在前端做防抖或结果缓存。
+2. **计费**：每次 API 调用均计费，请避免不必要的重复调用，建议在前端做防抖或结果缓存。
 
 3. **错误处理**：务必处理 `429`（配额超限）和 `402`（余额不足），并向用户给出友好提示。
 
