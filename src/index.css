@@ -34,20 +34,20 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 10%;
 
-    /* 主色 —— 蓝紫色 */
-    --primary: 258 89% 66%;          /* #8b5cf6 紫色 */
+    /* 主色 —— 科技紫（更深沉专业） */
+    --primary: 240 60% 45%;          /* 深蓝紫 */
     --primary-foreground: 0 0% 100%;
 
     /* 次色 */
-    --secondary: 221 83% 95%;        /* #eff6ff 淡蓝 */
+    --secondary: 220 30% 96%;        /* 浅灰蓝 */
     --secondary-foreground: 222 47% 10%;
 
     /* 柔和区 */
-    --muted: 220 20% 95%;
-    --muted-foreground: 220 15% 50%;
+    --muted: 220 15% 96%;
+    --muted-foreground: 220 10% 45%;
 
-    /* 强调色 —— 蓝色 */
-    --accent: 217 91% 60%;           /* #3b82f6 蓝色 */
+    /* 强调色 —— 深蓝 */
+    --accent: 220 65% 50%;           /* 深蓝 */
     --accent-foreground: 0 0% 100%;
 
     /* 危险色 */
@@ -59,14 +59,14 @@
     --input: 220 20% 88%;
     --ring: 258 89% 66%;
 
-    /* 渐变 */
-    --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #a855f7 100%);
-    --gradient-card: linear-gradient(135deg, rgba(59,130,246,0.06) 0%, rgba(139,92,246,0.06) 100%);
-    --gradient-background: linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(168,85,247,0.1) 50%, rgba(59,130,246,0.05) 100%);
+    /* 渐变 —— 简约化，减少花哨 */
+    --gradient-primary: linear-gradient(135deg, #3b5998 0%, #5b7db1 100%);
+    --gradient-card: linear-gradient(135deg, rgba(59,89,152,0.04) 0%, rgba(91,125,177,0.04) 100%);
+    --gradient-background: linear-gradient(135deg, rgba(59,89,152,0.08) 0%, rgba(91,125,177,0.06) 100%);
 
-    /* 阴影 */
-    --shadow-card: 0 4px 24px rgba(139,92,246,0.10), 0 1px 4px rgba(0,0,0,0.04);
-    --shadow-hover: 0 8px 32px rgba(139,92,246,0.18), 0 2px 8px rgba(0,0,0,0.06);
+    /* 阴影 —— 更柔和 */
+    --shadow-card: 0 2px 16px rgba(59,89,152,0.08), 0 1px 3px rgba(0,0,0,0.03);
+    --shadow-hover: 0 6px 24px rgba(59,89,152,0.12), 0 2px 6px rgba(0,0,0,0.04);
 
     /* 图表 */
     --chart-1: 258 89% 66%;
@@ -139,22 +139,20 @@
 }
 
 @layer utilities {
-  /* 渐变文字 —— 支持流动光泽 */
+  /* 渐变文字 —— 简约化，去除流动动画 */
   .gradient-text {
-    background-image: linear-gradient(120deg, #3b82f6 0%, #8b5cf6 40%, #a855f7 60%, #3b82f6 100%);
-    background-size: 200% auto;
+    background-image: linear-gradient(135deg, #3b5998 0%, #5b7db1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradient-shift 6s linear infinite;
   }
 
-  /* 玻璃卡片 */
+  /* 玻璃卡片 —— 更简约 */
   .glass-card {
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(139, 92, 246, 0.12);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(59, 89, 152, 0.08);
   }
 
   /* 光晕装饰球 */
@@ -165,20 +163,20 @@
     will-change: transform;
   }
 
-  /* 渐变按钮 */
+  /* 渐变按钮 —— 简约化 */
   .btn-gradient {
     background-image: var(--gradient-primary);
     color: white;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
   }
 
   .btn-gradient:hover {
-    box-shadow: 0 6px 24px rgba(139, 92, 246, 0.35);
+    box-shadow: 0 4px 16px rgba(59, 89, 152, 0.25);
     transform: translateY(-1px);
   }
 
   .btn-gradient:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
   }
 
   /* —— 动效工具类 —— */

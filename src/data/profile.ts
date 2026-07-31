@@ -9,8 +9,8 @@ export interface ProfileInfoItem {
 }
 
 export const profile = {
-  name: 'hope',
-  tagline: '一个正在学习用ai做网页，最终ai赚钱的求学者',
+  name: 'HOPE',
+  tagline: '一个在深圳学习AI的新手。',
   info: [
     {
       label: '我现在主要在做',

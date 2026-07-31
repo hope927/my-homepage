@@ -7,7 +7,7 @@ const WELCOME_MESSAGE: ChatMessageData = {
   id: 'welcome',
   sender: 'bot',
   text:
-    '你好，我是 hope 的数字分身 👋\n可以问我关于 hope 的任何问题，比如下方的推荐问题。',
+    '你可以问我最近在学什么，怎么转行AI，或者我能帮你做什么。',
 };
 
 // 打字中指示器
@@ -20,7 +20,7 @@ const TypingIndicator: React.FC = () => (
       {[0, 150, 300].map((delay) => (
         <span
           key={delay}
-          className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground/60"
+          className="h-1.5 w-1.5 animate-bounce rounded-full bg-primary/50"
           style={{ animationDelay: `${delay}ms` }}
         />
       ))}
@@ -76,13 +76,11 @@ const ChatPanel: React.FC = () => {
   };
 
   return (
-    <section className="animate-rise glass-card flex w-full flex-col gap-4 rounded-3xl p-4 shadow-card md:p-6" style={{ animationDelay: '0.45s' }}>
+    <section className="animate-rise glass-card flex w-full flex-col gap-4 rounded-2xl p-5 shadow-card md:p-6" style={{ animationDelay: '0.45s' }}>
       {/* 标题 */}
-      <div className="flex items-center gap-2">
-        <span className="relative btn-gradient flex h-8 w-8 items-center justify-center rounded-lg">
+      <div className="flex items-center gap-2.5">
+        <span className="btn-gradient flex h-8 w-8 items-center justify-center rounded-lg">
           <Sparkles className="h-4 w-4" />
-          {/* 图标呼吸光点 */}
-          <span className="absolute -right-0.5 -top-0.5 h-2 w-2 animate-ping rounded-full bg-emerald-400" />
         </span>
         <div className="min-w-0">
           <h2 className="text-base font-semibold text-foreground">数字分身</h2>
@@ -95,9 +93,9 @@ const ChatPanel: React.FC = () => {
       {/* 消息列表 */}
       <div
         ref={scrollRef}
-        className="max-h-[360px] min-h-[180px] flex-1 overflow-y-auto"
+        className="max-h-[320px] min-h-[160px] flex-1 overflow-y-auto"
       >
-        <div className="flex flex-col gap-4 py-1">
+        <div className="flex flex-col gap-3 py-1">
           {messages.map((m) => (
             <ChatMessage key={m.id} message={m} animate={m.id !== 'welcome'} />
           ))}
@@ -113,7 +111,7 @@ const ChatPanel: React.FC = () => {
             type="button"
             onClick={() => send(q)}
             disabled={isTyping}
-            className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs text-primary transition-all hover:-translate-y-0.5 hover:bg-primary/10 hover:shadow-[0_4px_12px_rgba(139,92,246,0.2)] disabled:opacity-50"
+            className="rounded-full border border-blue-500/15 bg-blue-500/5 px-3 py-1.5 text-xs text-blue-700 transition-all hover:-translate-y-0.5 hover:bg-blue-500/10 hover:shadow-[0_2px_8px_rgba(59,89,152,0.15)] disabled:opacity-50"
           >
             {q}
           </button>
@@ -126,7 +124,7 @@ const ChatPanel: React.FC = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="问点什么吧…（例如：你接触ai多久了？）"
-          className="min-w-0 flex-1 rounded-xl border border-border bg-white/70 px-3 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+          className="min-w-0 flex-1 rounded-xl border border-border bg-white/80 px-3 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary/40 focus:ring-2 focus:ring-primary/15"
         />
         <button
           type="submit"

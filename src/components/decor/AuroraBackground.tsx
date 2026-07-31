@@ -1,20 +1,19 @@
 import React from 'react';
 
-// 极光渐变背景：淡蓝紫光晕球叠加在白色基底上，营造科技氛围
+// 简约背景：微弱光晕 + 细网格，营造轻微科技感
 const AuroraBackground: React.FC = () => {
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      <div className="glow-orb animate-float-slow absolute -left-[5%] -top-[10%] h-[42vw] w-[42vw] bg-blue-400/30" />
-      <div className="glow-orb animate-float-slower absolute right-[-10%] top-[15%] h-[36vw] w-[36vw] bg-violet-400/25" />
-      <div className="glow-orb animate-float-slow absolute bottom-[-15%] left-[28%] h-[46vw] w-[46vw] bg-purple-300/20" style={{ animationDelay: '-6s' }} />
-      <div className="glow-orb animate-float-slower absolute bottom-[10%] right-[5%] h-[24vw] w-[24vw] bg-sky-300/20" style={{ animationDelay: '-10s' }} />
-      {/* 顶部细网格线，增强科技感 */}
+      {/* 减少光晕球数量和透明度，让背景更干净 */}
+      <div className="glow-orb animate-float-slow absolute -left-[10%] -top-[15%] h-[35vw] w-[35vw] bg-blue-200/15" />
+      <div className="glow-orb animate-float-slower absolute right-[-5%] top-[20%] h-[30vw] w-[30vw] bg-slate-300/12" />
+      {/* 网格线：更淡，几乎不可见 */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.02]"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(139,92,246,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.5) 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
+            'linear-gradient(rgba(59,89,152,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(59,89,152,0.5) 1px, transparent 1px)',
+          backgroundSize: '56px 56px',
         }}
       />
     </div>

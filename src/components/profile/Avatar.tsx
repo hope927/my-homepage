@@ -43,15 +43,15 @@ const Avatar: React.FC<AvatarProps> = ({ initialSrc }) => {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <div className="relative h-28 w-28 md:h-32 md:w-32">
-        {/* 呼吸光晕 */}
-        <span className="animate-pulse-ring absolute inset-[-6px] rounded-full bg-gradient-to-br from-blue-500/40 to-violet-500/40 blur-md" />
-        {/* 旋转渐变光环 */}
+      <div className="relative h-24 w-24 md:h-28 md:w-28">
+        {/* 呼吸光晕 —— 更柔和 */}
+        <span className="animate-pulse-ring absolute inset-[-5px] rounded-full bg-gradient-to-br from-blue-400/30 to-slate-400/30 blur-md" />
+        {/* 旋转渐变光环 —— 简约化 */}
         <span
-          className="animate-spin-slow absolute inset-0 rounded-full opacity-90"
+          className="animate-spin-slow absolute inset-0 rounded-full opacity-80"
           style={{
             background:
-              'conic-gradient(from 0deg, #3b82f6, #8b5cf6, #a855f7, #3b82f6)',
+              'conic-gradient(from 0deg, #3b5998, #5b7db1, #3b5998)',
           }}
         />
         <button
@@ -60,7 +60,7 @@ const Avatar: React.FC<AvatarProps> = ({ initialSrc }) => {
           onDrop={onDrop}
           onDragOver={(e) => e.preventDefault()}
           aria-label="上传头像"
-          className="group absolute inset-[3px] block overflow-hidden rounded-full bg-white shadow-[0_8px_32px_rgba(139,92,246,0.35)] transition-transform hover:scale-[1.03] active:scale-95"
+          className="group absolute inset-[2.5px] block overflow-hidden rounded-full bg-white shadow-[0_4px_16px_rgba(59,89,152,0.25)] transition-transform hover:scale-[1.02] active:scale-95"
         >
           {avatarSrc ? (
             <img
@@ -70,7 +70,7 @@ const Avatar: React.FC<AvatarProps> = ({ initialSrc }) => {
             />
           ) : (
             <span className="flex h-full w-full items-center justify-center">
-              <span className="text-4xl font-semibold gradient-text md:text-5xl">
+              <span className="text-3xl font-semibold gradient-text md:text-4xl">
                 H
               </span>
             </span>
